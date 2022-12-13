@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-webapp-deployment
+  labels:
+    app: frontend-webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend-webapp
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: frontend-webapp
+    spec:
+      containers:
+        - name: frontend-webapp
+          image: surajgthakur/cloudethix_configmap_suraj:v1
+          ports:
+            - containerPort: 80

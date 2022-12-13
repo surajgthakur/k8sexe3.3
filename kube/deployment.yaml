@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-webapp-configmap
+  labels:
+    app: frontend-webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend-webapp
+  template:
+    metadata:
+      labels:
+        app: frontend-webapp
+    spec:
+      containers:
+      - name: frontend-webapp-configmap
+        image: surajgthakur/cloudethix_configmap_suraj:v1
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - name: frontend-webapp-configmap
+              mountPath: /usr/share/nginx/html/
+      volumes:
+      - name: frontend-webapp-configmap
+        configMap:
+          name: index-html-configmap
